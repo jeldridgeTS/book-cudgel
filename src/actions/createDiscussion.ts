@@ -1,5 +1,11 @@
 "use server";
 
+import { auth } from "@/auth";
+import { db } from "@/db";
+import type { Discussion } from "@prisma/client";
+import paths from "@/paths";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const createDiscussionValidationSchema = z.object({
@@ -11,8 +17,9 @@ const createDiscussionValidationSchema = z.object({
 
 interface CreateDiscussionFormState {
   errors: {
-    name?: string[];
+    book?: string[];
     description?: string[];
+    _form?: string[];
   };
 }
 
@@ -33,9 +40,39 @@ export async function createDiscussion(
     };
   }
 
-  return {
-    errors: {},
-  };
+  const session = await auth();
+  if (!session || !session.user) {
+    return {
+      errors: {
+        _form: ["You must be signed in."],
+      },
+    };
+  }
 
-  //TODO: revalidate page
+  let discussion: Discussion;
+  try {
+    discussion = await db.discussion.create({
+      data: {
+        slug: result.data.book,
+        description: result.data.description,
+      },
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return {
+        errors: {
+          _form: [err.message],
+        },
+      };
+    } else {
+      return {
+        errors: {
+          _form: ["Something went wrong :("],
+        },
+      };
+    }
+  }
+
+  revalidatePath("/");
+  redirect(paths.discussionShow(discussion.slug));
 }
