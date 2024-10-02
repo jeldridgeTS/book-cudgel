@@ -31,6 +31,8 @@ export default function DiscussionCreateForm() {
               label="Book"
               labelPlacement="outside"
               placeholder="title"
+              isInvalid={!!formState.errors.book}
+              errorMessage={formState.errors.book?.join(", ")}
             />
 
             {
@@ -41,7 +43,19 @@ export default function DiscussionCreateForm() {
               label="Description"
               labelPlacement="outside"
               placeholder="..."
+              isInvalid={!!formState.errors.description}
+              errorMessage={formState.errors.description?.join(", ")}
             />
+
+            {
+              //TODO: Replace with a toast
+              formState.errors._form ? (
+                <div className="p-2 bg-red-200 border rounded-xl border-red-400">
+                  {formState.errors._form.join(", ")}
+                </div>
+              ) : null
+            }
+
             <Button color="secondary" variant="flat" type="submit">
               Submit
             </Button>
