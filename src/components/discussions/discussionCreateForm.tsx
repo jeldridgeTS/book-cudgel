@@ -8,6 +8,7 @@ import {
   PopoverTrigger,
   Textarea,
 } from "@nextui-org/react";
+import FormButton from "@/components/common/formButton";
 import * as actions from "@/actions";
 import { useFormState } from "react-dom";
 
@@ -56,9 +57,9 @@ export default function DiscussionCreateForm() {
               ) : null
             }
 
-            <Button color="secondary" variant="flat" type="submit">
+            <FormButton color="secondary" variant="flat" type="submit">
               Submit
-            </Button>
+            </FormButton>
           </div>
         </form>
       </PopoverContent>
