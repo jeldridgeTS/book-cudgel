@@ -1,3 +1,5 @@
+import PostCreateForm from "@/components/posts/postCreateForm";
+
 interface DiscussionShowPageProps {
   params: {
     slug: string;
@@ -15,7 +17,9 @@ export default function DiscussionShowPage({
         <h1 className="text-2xl font-bold mb-2">{slug}</h1>
       </div>
 
-      <div></div>
+      <div>
+        <PostCreateForm />
+      </div>
     </div>
   );
 }
