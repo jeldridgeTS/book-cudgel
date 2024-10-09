@@ -19,7 +19,13 @@ export default async function PostList({ fetchData }: PostListProps) {
     return (
       <div key={post.id} className="border rounded p-2">
         <Link href={paths.postShow(discussionSlug, post.id)}>
-          <h3 className="text-lg font-bold">{post.title}</h3>
+          <div className="flex flex-row justify-between">
+            <h3 className="text-lg font-bold">{post.title}</h3>
+            <Link className="text-xs text-gray-400" href={"#"}>
+              In:
+              <span className="text-xs text-gray-600 font-bold hover:text-danger">{` ${discussionSlug}`}</span>
+            </Link>
+          </div>
           <div className="flex flex-row gap-8">
             <p className="text-xs text-gray-400">By {post.user.name}</p>
             <p className="text-xs text-gray-400">

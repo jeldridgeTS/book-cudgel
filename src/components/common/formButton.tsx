@@ -8,7 +8,6 @@ interface FormButtonProps extends ButtonProps {
 }
 
 export default function FormButton({ children, ...props }: FormButtonProps) {
-  console.log("SOME PROPS", props);
   const { pending } = useFormStatus();
 
   return (

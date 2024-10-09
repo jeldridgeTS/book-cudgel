@@ -19,6 +19,6 @@ export default async function DiscussionList() {
   });
 
   return (
-    <div className="flex flex-row flex-wrap gap-2">{renderedDiscussions}</div>
+    <div className="flex flex-col flex-wrap gap-2">{renderedDiscussions}</div>
   );
 }
