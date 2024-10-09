@@ -8,11 +8,11 @@ const paths = {
   },
 
   postCreate(discussionSlug: string) {
-    return `/discussion/${discussionSlug}/posts/new`;
+    return `/discussion/${discussionSlug}/post/new`;
   },
 
   postShow(discussionSlug: string, postId: string) {
-    return `/discussion/${discussionSlug}/posts/${postId}`;
+    return `/discussion/${discussionSlug}/post/${postId}`;
   },
 };
 
