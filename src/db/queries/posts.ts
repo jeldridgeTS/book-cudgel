@@ -12,6 +12,19 @@ export type EnrichedPost = Awaited<
   ReturnType<typeof fetchPostsByDiscussionSlug>
 >[number];
 
+export function fetchPostsBySearchTerm(term: string): Promise<PostWithData[]> {
+  return db.post.findMany({
+    include: {
+      discussion: { select: { slug: true } },
+      user: { select: { name: true, image: true } },
+      _count: { select: { comments: true } },
+    },
+    where: {
+      OR: [{ title: { contains: term } }, { content: { contains: term } }],
+    },
+  });
+}
+
 export function fetchPostsByDiscussionSlug(
   slug: string
 ): Promise<PostWithData[]> {
