@@ -13,6 +13,10 @@
 /.next/
 /out/
 
+# prisma
+prisma/dev.db
+prisma/dev.db-journal
+
 # production
 /build
 
